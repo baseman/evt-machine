@@ -1,10 +1,10 @@
 'use strict';
 
-describe('SnapshotActionCreators', () => {
+describe('EventActionCreators', () => {
   let action;
 
   beforeEach(() => {
-    action = require('actions/SnapshotActions.js');
+    action = require('actions/EventActions.js');
   });
 
   it('should be defined', () => {

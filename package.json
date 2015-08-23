@@ -19,8 +19,7 @@
     "events": "^1.0.2",
     "object-assign": "^2.0.0",
     "react": "0.13.x",
-    "normalize.css": "~3.0.3",
-    "lodash": "3.10.0"
+    "normalize.css": "~3.0.3"
   },
   "devDependencies": {
     "babel": "^5.0.0",
@@ -30,6 +29,7 @@
     "eslint-loader": "^0.11.2",
     "eslint-plugin-react": "^2.4.0",
     "load-grunt-tasks": "~0.6.0",
+    "lodash": "3.10.0",
     "grunt-contrib-connect": "~0.8.0",
     "grunt-webpack": "~1.0.8",
     "jasmine-core": "^2.3.4",

@@ -2,12 +2,11 @@
 
 var React = require('react/addons');
 
-var EventItem = require('components/EventItem');
+var EventItem = require('./EventItem');
 
-var EventStore = require('stores/EventStore');
-var SnapshotStore = require('stores/SnapshotStore');
+var EventStore = require('../stores/EventStore');
 
-var SnapshotActions = require('actions/SnapshotActions');
+var EventActions = require('../actions/EventActions');
 
 require('styles/EventList.css');
 
@@ -28,11 +27,8 @@ var EventList = React.createClass({
     componentWillUnmount: function() {
         EventStore.removeChangeListener(this._onChange);
     },
-    handlePlayBackClick: function(){
-        SnapshotActions.playback(this.state.listData, this.props.aggregateId);
-    },
     handleClearEventsClick: function(){
-        SnapshotActions.clear(this.props.aggregateId);
+        EventActions.clear(this.props.aggregateId);
     },
     render: function () {
 
@@ -44,21 +40,11 @@ var EventList = React.createClass({
             );
         });
 
-        var isEvtNodes = evtNodes.length > 0;
-
-        var isSnapshot = false;
-        if(isEvtNodes){
-            isSnapshot = SnapshotStore.isSnapshot(this.props.aggregateId);
-        }
-
-        var isPlayback = isEvtNodes && !isSnapshot;
-
-        return (<div className="EventList">
+         return (<div className="EventList">
                 <h3>Event State</h3>
                 {evtNodes}
                 <span>
-                    <button disabled={isPlayback ? '' : 'disabled'} onClick={this.handlePlayBackClick}>Play Back</button>
-                    <button disabled={isSnapshot ? '' : 'disabled'} onClick={this.handleClearEventsClick}>Clear</button>
+                    <button onClick={this.handleClearEventsClick}>Clear Events</button>
                 </span>
             </div>);
     },

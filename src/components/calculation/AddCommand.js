@@ -1,9 +1,8 @@
 'use strict';
 
 var React = require('react/addons');
-var AppDispatcher = require('../../dispatcher/AppDispatcher');
 
-var eventPlayer = require('eventPlayerJs');
+var EventActions = require('../../actions/EventActions');
 
 require('styles/calculation/AddCommand.css');
 
@@ -16,12 +15,10 @@ var CommandAdd = React.createClass({
     },
     handleExecuteClick: function(){
 
-        var command = this.props.command.make({
-            addVal: React.findDOMNode(this.refs.addVal).value.trim()
-        });
-        var event = eventPlayer.Command.execute({'command': command, 'on': this.props.aggregate});
-
-        AppDispatcher.handleViewAction({event: event});
+        EventActions.execute(
+            this.props.command,
+            { addVal: React.findDOMNode(this.refs.addVal).value.trim() },
+            this.props.aggregate);
 
         this.setState({ showMakeCommand: false });
     },

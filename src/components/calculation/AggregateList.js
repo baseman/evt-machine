@@ -3,13 +3,12 @@
 require('styles/calculation/AggregateList.css');
 var React = require('react/addons');
 
-var eventPlayer = require('eventPlayerJs');
-
 var CalculationAggregate = require('components/calculation/Aggregate');
 
 var SnapshotStore = require('../../stores/SnapshotStore');
+var AggregateActions = require('../../actions/AggregateActions');
 
-var aggregateActions = require('../../actions/AggregateActions');
+var eventPlayer = require('eventPlayerJs');
 
 function getState() {
     return {
@@ -37,13 +36,13 @@ var AggregateList = React.createClass({
         SnapshotStore.removeChangeListener(this._onChange);
     },
     handleCreateAggregateClick: function(){
-        aggregateActions.add({
+        AggregateActions.add({
             aggregateType: aggregateType,
             val: 0
         });
     },
     handleClearAggregateClick: function(){
-        aggregateActions.clear();
+        AggregateActions.clear();
     },
     render: function () {
 
