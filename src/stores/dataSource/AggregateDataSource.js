@@ -4,7 +4,7 @@ var config = require('./config');
 
 var AggregateDataSource = {
     promiseLoad: function(){
-        return new Promise((resolve, reject) => {
+        return new Promise( (resolve, reject) => {
             r
                 .get(config.hostUrl + '/aggregate')
                 .end((error, res) => {

@@ -7,8 +7,9 @@ var eventPlayer = require('eventPlayerJs');
 
 var CalculationAggregate = require('components/calculation/Aggregate');
 
-var AppDispatcher = require('../../dispatcher/AppDispatcher');
 var SnapshotStore = require('../../stores/SnapshotStore');
+
+var aggregateActions = require('../../actions/AggregateActions');
 
 function getState() {
     return {
@@ -36,11 +37,13 @@ var AggregateList = React.createClass({
         SnapshotStore.removeChangeListener(this._onChange);
     },
     handleCreateAggregateClick: function(){
-
-        AppDispatcher.handleViewAction({aggregate: {
+        aggregateActions.add({
             aggregateType: aggregateType,
             val: 0
-        }});
+        });
+    },
+    handleClearAggregateClick: function(){
+        aggregateActions.clear();
     },
     render: function () {
 
@@ -53,7 +56,9 @@ var AggregateList = React.createClass({
                 <h3>Aggregate Items</h3>
                 {evtNodes}
                 <span>
-                    <button onClick={this.handleCreateAggregateClick}>Create Aggregate</button>
+                    Aggregate Actions:
+                    <button onClick={this.handleCreateAggregateClick}>Create</button>
+                    <button onClick={this.handleClearAggregateClick}>Clear</button>
                 </span>
             </div>
         );

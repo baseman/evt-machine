@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-var SnapshotActionConstants = require('./SnapshotConstants');
+var SnapshotConstants = require('./SnapshotConstants');
 
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
@@ -101,11 +101,11 @@ SnapshotStore.dispatchToken = AppDispatcher.register(function(action) {
     if(action.source === 'VIEW_ACTION'){
 
         switch(action.data.actionType){
-            case SnapshotActionConstants.PLAYBACK:
+            case SnapshotConstants.PLAYBACK:
                 addSnapshot(action.data.aggregateId, action.data.events);
                 SnapshotStore.emitChange();
                 break;
-            case SnapshotActionConstants.CLEAR:
+            case SnapshotConstants.CLEAR:
                 removeSnapshot(action.data.aggregateId);
                 SnapshotStore.emitChange();
                 break;

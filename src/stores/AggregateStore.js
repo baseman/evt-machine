@@ -1,8 +1,10 @@
 'use strict';
+var AggregateConstants = require('./AggregateConstants');
 
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
+
 var AggregateDataSource = require('./dataSource/AggregateDataSource');
 
 var eventPlayer = require('eventPlayerJs');
@@ -43,6 +45,9 @@ function appendData(item) {
         eventPlayer.Model.make(item)
     );
 }
+function clearData() {
+    _data = [];
+}
 AggregateStore.dispatchToken = AppDispatcher.register(function(action) {
     if(action.source === 'SERVER_ACTION'){
         setData(action.data);
@@ -50,8 +55,13 @@ AggregateStore.dispatchToken = AppDispatcher.register(function(action) {
     }
 
     if(action.source === 'VIEW_ACTION'){
-        if(action.data.aggregate){
+        if(action.data.actionType === AggregateConstants.ADD){
             appendData(action.data.aggregate);
+            AggregateStore.emitChange();
+        }
+
+        if(action.data.actionType === AggregateConstants.CLEAR){
+            clearData();
             AggregateStore.emitChange();
         }
     }
