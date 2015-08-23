@@ -3,10 +3,10 @@ var assign = require('object-assign');
 
 var AppDispatcher = assign(new Dispatcher(), {
 
-    handleServerAggregateCreate: function(aggregate) {
+    handleServerData: function(response) {
         var payload = {
             source: 'SERVER_ACTION',
-            aggregate: aggregate
+            data: response
         };
         this.dispatch(payload);
     },

@@ -1,22 +1,22 @@
 'use strict';
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var PlayActionConstants = require('../stores/PlayActionConstants');
+var SnapshotActionConstants = require('../stores/SnapshotConstants');
 
-var PlayAggregateActionCreators = {
+var SnapshotActionCreators = {
     playback: function(events, aggregateId) {
         AppDispatcher.handleViewAction({
-            actionType: PlayActionConstants.PLAYBACK,
+            actionType: SnapshotActionConstants.PLAYBACK,
             events: events,
             aggregateId: aggregateId
         });
     },
     clear: function(aggregateId) {
         AppDispatcher.handleViewAction({
-            actionType: PlayActionConstants.CLEAR,
+            actionType: SnapshotActionConstants.CLEAR,
             aggregateId: aggregateId
         });
     }
 };
 
-module.exports = PlayAggregateActionCreators;
+module.exports = SnapshotActionCreators;

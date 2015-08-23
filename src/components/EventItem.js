@@ -19,6 +19,10 @@ var EventItem = React.createClass({
                 <span>{this.props.item.type}</span>
             </div>
             <div>
+                <span>Vesion: </span>
+                <span>{this.props.item.version}</span>
+            </div>
+            <div>
                 <span>Aggregate Id: </span>
                 <span>{this.props.item.aggregateId}</span>
             </div>

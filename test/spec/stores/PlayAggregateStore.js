@@ -1,10 +1,10 @@
 'use strict';
 
-describe('PlayAggregateStore', () => {
+describe('SnapshotStore', () => {
   let store;
 
   beforeEach(() => {
-    store = require('stores/PlayAggregateStore.js');
+    store = require('stores/SnapshotStore.js');
   });
 
   it('should be defined', () => {

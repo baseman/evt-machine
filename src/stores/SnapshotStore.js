@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-var PlayActionConstants = require('../stores/PlayActionConstants');
+var SnapshotActionConstants = require('./SnapshotConstants');
 
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
@@ -24,11 +24,26 @@ function getSnapshotFor(aggregateId) {
     }
 }
 
-var change = 'change_playAggregates';
-var PlayAggregateStore = assign({}, EventEmitter.prototype, {
+var change = 'change_snapshots';
+var SnapshotStore = assign({}, EventEmitter.prototype, {
+    load: function(){
+        return AggregateStore.promiseLoad()
+            .then(function(res){
+                AppDispatcher.handleServerData(res);
+            })
+            .catch(function(e){
+                console.error(e);
+            });
+    },
     get: function(){
 
-        var returnItems = AggregateStore.get().slice();
+        var aggregateItems = AggregateStore.get();
+
+        if (aggregateItems.length === 0){
+            return [];
+        }
+
+        var returnItems = aggregateItems.slice();
 
         for(var i = 0; i < returnItems.length; i++){
 
@@ -82,20 +97,20 @@ function addSnapshot(aggregateId, events) {
     snapshotItems.push(aggregate);
 }
 
-PlayAggregateStore.dispatchToken = AppDispatcher.register(function(action) {
+SnapshotStore.dispatchToken = AppDispatcher.register(function(action) {
     if(action.source === 'VIEW_ACTION'){
 
         switch(action.data.actionType){
-            case PlayActionConstants.PLAYBACK:
+            case SnapshotActionConstants.PLAYBACK:
                 addSnapshot(action.data.aggregateId, action.data.events);
-                PlayAggregateStore.emitChange();
+                SnapshotStore.emitChange();
                 break;
-            case PlayActionConstants.CLEAR:
+            case SnapshotActionConstants.CLEAR:
                 removeSnapshot(action.data.aggregateId);
-                PlayAggregateStore.emitChange();
+                SnapshotStore.emitChange();
                 break;
         }
     }
 });
 
-module.exports = PlayAggregateStore;
+module.exports = SnapshotStore;

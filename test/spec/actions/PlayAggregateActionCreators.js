@@ -1,10 +1,10 @@
 'use strict';
 
-describe('PlayAggregateActionCreators', () => {
+describe('SnapshotActionCreators', () => {
   let action;
 
   beforeEach(() => {
-    action = require('actions/PlayAggregateActions.js');
+    action = require('actions/SnapshotActions.js');
   });
 
   it('should be defined', () => {

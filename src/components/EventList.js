@@ -5,9 +5,9 @@ var React = require('react/addons');
 var EventItem = require('components/EventItem');
 
 var EventStore = require('stores/EventStore');
-var PlayAggregateStore = require('stores/PlayAggregateStore');
+var SnapshotStore = require('stores/SnapshotStore');
 
-var PlayAggregateActions = require('actions/PlayAggregateActions');
+var SnapshotActions = require('actions/SnapshotActions');
 
 require('styles/EventList.css');
 
@@ -29,10 +29,10 @@ var EventList = React.createClass({
         EventStore.removeChangeListener(this._onChange);
     },
     handlePlayBackClick: function(){
-        PlayAggregateActions.playback(this.state.listData, this.props.aggregateId);
+        SnapshotActions.playback(this.state.listData, this.props.aggregateId);
     },
     handleClearEventsClick: function(){
-        PlayAggregateActions.clear(this.props.aggregateId);
+        SnapshotActions.clear(this.props.aggregateId);
     },
     render: function () {
 
@@ -48,7 +48,7 @@ var EventList = React.createClass({
 
         var isSnapshot = false;
         if(isEvtNodes){
-            isSnapshot = PlayAggregateStore.isSnapshot(this.props.aggregateId);
+            isSnapshot = SnapshotStore.isSnapshot(this.props.aggregateId);
         }
 
         var isPlayback = isEvtNodes && !isSnapshot;

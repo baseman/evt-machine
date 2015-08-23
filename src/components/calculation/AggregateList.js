@@ -8,11 +8,11 @@ var eventPlayer = require('eventPlayerJs');
 var CalculationAggregate = require('components/calculation/Aggregate');
 
 var AppDispatcher = require('../../dispatcher/AppDispatcher');
-var PlayAggregateStore = require('stores/PlayAggregateStore');
+var SnapshotStore = require('../../stores/SnapshotStore');
 
 function getState() {
     return {
-        listData: PlayAggregateStore.get()
+        listData: SnapshotStore.get()
     };
 }
 
@@ -27,10 +27,13 @@ var AggregateList = React.createClass({
         return getState();
     },
     componentDidMount: function() {
-        PlayAggregateStore.addChangeListener(this._onChange);
+        SnapshotStore.addChangeListener(this._onChange);
+    },
+    componentWillMount: function() {
+        SnapshotStore.load();
     },
     componentWillUnmount: function() {
-        PlayAggregateStore.removeChangeListener(this._onChange);
+        SnapshotStore.removeChangeListener(this._onChange);
     },
     handleCreateAggregateClick: function(){
 
