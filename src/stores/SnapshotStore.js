@@ -1,5 +1,5 @@
 'use strict';
-
+var _ = require('lodash');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
@@ -10,11 +10,17 @@ var EventStore = require('./EventStore');
 var eventPlayer = require('eventPlayerJs');
 var player = eventPlayer.Player.make();
 
-function applySnapshot(aggregate, events) {
+function tryApplySnapshot(aggregate, events) {
+    if(events.length === 0){
+        return false;
+    }
+
     player.play({
         'events': events,
         'for': aggregate
     });
+
+    return true;
 }
 
 var change = 'change_snapshots';
@@ -40,10 +46,10 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
 
         for(var i = 0; i < returnItems.length; i++){
 
-            var aggregate = returnItems[i];
-            var eventItems = EventStore.getFor(aggregate.aggregateId);
-            var snapshot = applySnapshot(aggregate, eventItems);
-            if(snapshot){
+            var snapshot = _.clone(returnItems[i]);
+            var eventItems = EventStore.getFor(snapshot.aggregateId);
+            var isSnapshotApplied = tryApplySnapshot(snapshot, eventItems);
+            if(isSnapshotApplied){
                 returnItems[i] = snapshot;
             }
         }
