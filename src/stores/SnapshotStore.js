@@ -1,7 +1,10 @@
 'use strict';
+
 var _ = require('lodash');
+var Promise = require('es6-promise').Promise;
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var AggregateStore = require('./AggregateStore');
@@ -26,13 +29,17 @@ function tryApplySnapshot(aggregate, events) {
 var change = 'change_snapshots';
 var SnapshotStore = assign({}, EventEmitter.prototype, {
     load: function(){
-        return AggregateStore.promiseLoad()
-            .then(function(res){
+        Promise.all([
+            AggregateStore.promiseLoad(),
+            EventStore.promiseLoad()
+        ]).then(function(resultItems){
+            resultItems.map(function(res){
                 AppDispatcher.handleServerData(res);
-            })
-            .catch(function(e){
-                console.error(e);
             });
+        })
+        .catch(function(e){
+            console.error(e);
+        });
     },
     get: function(){
 

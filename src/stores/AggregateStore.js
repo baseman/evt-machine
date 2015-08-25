@@ -50,8 +50,10 @@ function clearData() {
 }
 AggregateStore.dispatchToken = AppDispatcher.register(function(action) {
     if(action.source === 'SERVER_ACTION'){
-        setData(action.data);
-        AggregateStore.emitChange();
+        if(action.data.aggregateItems){
+            setData(action.data.aggregateItems);
+            AggregateStore.emitChange();
+        }
     }
 
     if(action.source === 'VIEW_ACTION'){

@@ -1,15 +1,24 @@
 'use strict';
 
+var EventConstants = require('./EventConstants');
+
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
-var EventConstants = require('./EventConstants');
+var AggregateStore = require('./AggregateStore');
+
+var EventDataSource = require('./dataSource/EventDataSource');
+
+var calcEvent = require('../aggregate/calculation/event');
 
 var _data = [];
 
 var change = 'change_events';
 var EventStore = assign({}, EventEmitter.prototype, {
+    promiseLoad: function(){
+        return EventDataSource.promiseLoad();
+    },
     getFor: function(aggregateId) {
         var returnVal = [];
         for(var i = 0; i < _data.length; i++){
@@ -36,14 +45,35 @@ module.exports = EventStore;
 function appendData(event) {
     _data.push(event);
 }
-function removeData(aggregateId) {
+function removeAggregateData(aggregateId) {
     for(var i = 0; i < _data.length; i++){
         if(_data[i].aggregateId === aggregateId){
             _data.splice(i, 1);
         }
     }
 }
+function setEventData(data) {
+    _data = [];
+
+    for(var i = 0; i < data.length; i++){
+        var evt = data[i];
+        _data.push(
+            calcEvent[evt.type].make(
+                evt.aggregateId,
+                evt.version,
+                evt.data)
+        );
+    }
+}
+
 EventStore.dispatchToken = AppDispatcher.register(function(action) {
+    if(action.source === 'SERVER_ACTION'){
+        if(action.data.eventItems){
+            setEventData(action.data.eventItems);
+            EventStore.emitChange();
+        }
+    }
+
     if(action.source === 'VIEW_ACTION'){
         if(action.data.actionType === EventConstants.ADD){
             appendData(action.data.event);
@@ -51,7 +81,7 @@ EventStore.dispatchToken = AppDispatcher.register(function(action) {
         }
 
         if(action.data.actionType === EventConstants.CLEAR){
-            removeData(action.data.aggregateId);
+            removeAggregateData(action.data.aggregateId);
             EventStore.emitChange();
         }
     }
