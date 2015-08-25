@@ -30,6 +30,9 @@ var EventList = React.createClass({
     handleClearEventsClick: function(){
         EventActions.clear(this.props.aggregateId);
     },
+    handleUndoClick: function(){
+        EventActions.undo(this.props.aggregateId);
+    },
     render: function () {
 
         var evtNodes = EventStore.getFor(this.props.aggregateId).map(function (evt) {
@@ -44,7 +47,9 @@ var EventList = React.createClass({
                 <h3>Event State</h3>
                 {evtNodes}
                 <span>
-                    <button onClick={this.handleClearEventsClick}>Clear Events</button>
+                    Event Actions:
+                    <button onClick={this.handleUndoClick}>Undo</button>
+                    <button onClick={this.handleClearEventsClick}>Clear</button>
                 </span>
             </div>);
     },

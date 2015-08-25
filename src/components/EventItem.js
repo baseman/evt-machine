@@ -6,7 +6,6 @@ var React = require('react/addons');
 require('styles/EventItem.css');
 
 var EventItem = React.createClass({
-
   render: function () {
     return (
         <div className="EventItem">

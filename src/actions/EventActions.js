@@ -21,6 +21,12 @@ var EventActionCreators = {
             actionType: EventConstants.CLEAR,
             aggregateId: aggregateId
         });
+    },
+    undo: function(aggregateId){
+        AppDispatcher.handleViewAction({
+            actionType: EventConstants.UNDO,
+            aggregateId: aggregateId
+        });
     }
 };
 

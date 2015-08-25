@@ -45,13 +45,6 @@ module.exports = EventStore;
 function appendData(event) {
     _data.push(event);
 }
-function removeAggregateData(aggregateId) {
-    for(var i = 0; i < _data.length; i++){
-        if(_data[i].aggregateId === aggregateId){
-            _data.splice(i, 1);
-        }
-    }
-}
 function setEventData(data) {
     _data = [];
 
@@ -65,7 +58,14 @@ function setEventData(data) {
         );
     }
 }
-
+function removeLastAggregateData(aggregateId) {
+    for(var i = _data.length - 1; i >= 0; i--){
+        if(_data[i].aggregateId === aggregateId){
+            _data.splice(i, 1);
+            return;
+        }
+    }
+}
 EventStore.dispatchToken = AppDispatcher.register(function(action) {
     if(action.source === 'SERVER_ACTION'){
         if(action.data.eventItems){
@@ -81,7 +81,12 @@ EventStore.dispatchToken = AppDispatcher.register(function(action) {
         }
 
         if(action.data.actionType === EventConstants.CLEAR){
-            removeAggregateData(action.data.aggregateId);
+            removeLastAggregateData(action.data.aggregateId);
+            EventStore.emitChange();
+        }
+
+        if(action.data.actionType === EventConstants.UNDO){
+            removeLastAggregateData(action.data.aggregateId);
             EventStore.emitChange();
         }
     }
