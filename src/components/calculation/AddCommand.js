@@ -17,7 +17,7 @@ var CommandAdd = React.createClass({
 
         EventActions.execute(
             this.props.command,
-            { addVal: React.findDOMNode(this.refs.addVal).value.trim() },
+            { addVal: parseInt(React.findDOMNode(this.refs.addVal).value.trim()) },
             this.props.aggregate);
 
         this.setState({ showMakeCommand: false });
