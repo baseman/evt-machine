@@ -7,7 +7,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var AggregateDataSource = require('./dataSource/AggregateDataSource');
 
-var eventPlayer = require('eventPlayerJs');
+var eventPlayer = require('event-player');
 
 var _data = [];
 var change = 'change_aggregates';

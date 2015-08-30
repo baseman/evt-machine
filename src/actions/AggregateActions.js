@@ -3,6 +3,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AggregateConstants = require('../stores/AggregateConstants');
 
 var AggregateActionCreators = {
+
     add: function(aggregate){
         AppDispatcher.handleViewAction({
             actionType: AggregateConstants.ADD,

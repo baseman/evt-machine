@@ -6,8 +6,6 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
-var AggregateStore = require('./AggregateStore');
-
 var EventDataSource = require('./dataSource/EventDataSource');
 
 var calcEvent = require('../aggregate/calculation/event');

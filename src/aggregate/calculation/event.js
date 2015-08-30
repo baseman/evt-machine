@@ -1,4 +1,4 @@
-var eventPlayer = require('eventPlayerJs');
+var eventPlayer = require('event-player');
 
 var events = {
 };

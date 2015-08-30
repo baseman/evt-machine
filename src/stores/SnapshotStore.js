@@ -10,7 +10,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AggregateStore = require('./AggregateStore');
 var EventStore = require('./EventStore');
 
-var eventPlayer = require('eventPlayerJs');
+var eventPlayer = require('event-player');
 var player = eventPlayer.Player.make();
 
 function tryApplySnapshot(aggregate, events) {

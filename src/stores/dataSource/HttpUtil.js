@@ -7,9 +7,9 @@ var HttpUtil = {
         return new Promise( (resolve, reject) => {
             r
                 .get(config.hostUrl + resourcePath)
-                .end((error, res) => {
-                    if(error){
-                        reject(error);
+                .end((err, res) => {
+                    if(err){
+                        reject(err);
                     }
                     else{
                         resolve(res.body);

@@ -1,6 +1,6 @@
 'use strict';
 
-var eventPlayer = require('eventPlayerJs');
+var eventPlayer = require('event-player');
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventConstants = require('../stores/EventConstants');

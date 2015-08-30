@@ -8,7 +8,7 @@ var CalculationAggregate = require('components/calculation/Aggregate');
 var SnapshotStore = require('../../stores/SnapshotStore');
 var AggregateActions = require('../../actions/AggregateActions');
 
-var eventPlayer = require('eventPlayerJs');
+var eventPlayer = require('event-player');
 
 function getState() {
     return {
@@ -38,7 +38,8 @@ var AggregateList = React.createClass({
     handleCreateAggregateClick: function(){
         AggregateActions.add({
             aggregateType: aggregateType,
-            val: 0
+            val: 0,
+            version: 1
         });
     },
     handleClearAggregateClick: function(){

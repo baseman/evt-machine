@@ -10,28 +10,7 @@ var EventItem = React.createClass({
     return (
         <div className="EventItem">
             <div>
-                <span>Event Id: </span>
-                <span>{this.props.item.id}</span>
-            </div>
-            <div>
-                <span>Event Type: </span>
-                <span>{this.props.item.type}</span>
-            </div>
-            <div>
-                <span>Vesion: </span>
-                <span>{this.props.item.version}</span>
-            </div>
-            <div>
-                <span>Aggregate Id: </span>
-                <span>{this.props.item.aggregateId}</span>
-            </div>
-            <div>
-                <span>Aggregate Type: </span>
-                <span>{this.props.item.aggregateType}</span>
-            </div>
-            <div>
-                <span>Event Data: </span>
-                <span>{this.props.children}</span>
+                <span>{JSON.stringify(this.props.item)}</span>
             </div>
         </div>
       );
