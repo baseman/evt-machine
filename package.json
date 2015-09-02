@@ -10,7 +10,7 @@
   "mainInput": "EvtMachineApp",
   "mainOutput": "main",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --port 8090 --content-base ./src/"
+    "start": "grunt serve"
   },
   "dependencies": {
     "es6-promise": "^3.0.2",
