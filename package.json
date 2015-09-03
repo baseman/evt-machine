@@ -10,7 +10,7 @@
   "mainInput": "EvtMachineApp",
   "mainOutput": "main",
   "scripts": {
-    "start": "grunt serve"
+    "serve": "grunt serve"
   },
   "dependencies": {
     "es6-promise": "^3.0.2",
