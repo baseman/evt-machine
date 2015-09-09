@@ -5,16 +5,16 @@
 // const TestUtils = React.addons.TestUtils;
 
 import createComponent from 'helpers/createComponent';
-import CommandList from 'components/CommandList.js';
+import CommandItem from 'components/command/CommandItem.js';
 
-describe('CommandList', () => {
-    let CommandListComponent;
+describe('CommandItem', () => {
+    let CommandItemComponent;
 
     beforeEach(() => {
-        CommandListComponent = createComponent(CommandList);
+        CommandItemComponent = createComponent(CommandItem);
     });
 
     it('should have its component name as default className', () => {
-        expect(CommandListComponent._store.props.className).toBe('CommandList');
+        expect(CommandItemComponent._store.props.className).toBe('CommandItem');
     });
 });

@@ -5,16 +5,16 @@
 // const TestUtils = React.addons.TestUtils;
 
 import createComponent from 'helpers/createComponent';
-import Aggregate from 'components/calculation/Aggregate.js';
+import CommandExecute from 'components/command/CommandExecute.js';
 
-describe('Aggregate', () => {
-    let AggregateComponent;
+describe('CommandExecute', () => {
+    let CommandExecuteComponent;
 
     beforeEach(() => {
-        AggregateComponent = createComponent(Aggregate);
+        CommandExecuteComponent = createComponent(CommandExecute);
     });
 
     it('should have its component name as default className', () => {
-        expect(AggregateComponent._store.props.className).toBe('Aggregate');
+        expect(CommandExecuteComponent._store.props.className).toBe('CommandExecute');
     });
 });

@@ -7,7 +7,7 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 require('normalize.css');
 require('../styles/main.css');
 
-var CalculationAggregateList = require('components/calculation/AggregateList');
+var CalculationAggregateList = require('./aggregate/AggregateList');
 
 var EvtMachineApp = React.createClass({
     displayName: 'Event Box',

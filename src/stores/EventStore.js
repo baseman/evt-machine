@@ -78,11 +78,6 @@ EventStore.dispatchToken = AppDispatcher.register(function(action) {
             EventStore.emitChange();
         }
 
-        if(action.data.actionType === EventConstants.CLEAR){
-            removeLastAggregateData(action.data.aggregateId);
-            EventStore.emitChange();
-        }
-
         if(action.data.actionType === EventConstants.UNDO){
             removeLastAggregateData(action.data.aggregateId);
             EventStore.emitChange();

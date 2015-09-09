@@ -1,14 +1,19 @@
 var eventPlayer = require('event-player');
 
 var events = {
+    added: eventPlayer.Event.init({
+        'type': 'added',
+        'aggregateType': 'calculation',
+        'applyChanges': function(options){
+            options.aggregate.val = options.aggregate.val + options.event.data.addVal;
+        }
+    }),
+    cleared: eventPlayer.Event.init({
+        'type': 'cleared',
+        'aggregateType': 'calculation',
+        'applyChanges': function(options){
+            options.aggregate.val = 0;
+        }
+    })
 };
-
-events.added = eventPlayer.Event.init({
-    'type': 'added',
-    'aggregateType': 'calculation',
-    'applyChanges': function(options){
-        options.model.val = options.model.val + options.event.data.addVal;
-    }
-});
-
 module.exports = events;

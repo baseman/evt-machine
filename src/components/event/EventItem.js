@@ -3,7 +3,7 @@
 var React = require('react/addons');
 
 
-require('styles/EventItem.css');
+require('../../styles/event/EventItem.css');
 
 var EventItem = React.createClass({
   render: function () {

@@ -1,42 +1,22 @@
 'use strict';
 
 var React = require('react/addons');
+var CommandExecute = require('../command/CommandExecute');
 
-var EventActions = require('../../actions/EventActions');
+require('../../styles/calculation/AddCommand.css');
 
-require('styles/calculation/AddCommand.css');
-
-var CommandAdd = React.createClass({
-    getInitialState: function() {
-        return { showMakeCommand: false };
-    },
-    handleMakeClick: function(){
-        this.setState({ showMakeCommand: true });
-    },
+var AddCommand = React.createClass({
     handleExecuteClick: function(){
-
-        EventActions.execute(
-            this.props.command,
-            { addVal: parseInt(React.findDOMNode(this.refs.addVal).value.trim()) },
-            this.props.aggregate);
-
-        this.setState({ showMakeCommand: false });
+        this.props.onClick({ addVal: parseInt(React.findDOMNode(this.refs.addVal).value.trim()) });
     },
     render: function () {
-        var cmdStyle = {
-            visibility: this.state.showMakeCommand ? 'visible' : 'hidden'
-        };
-
         return (
-          <div className='CommandAdd'>
-              <span><button onClick={this.handleMakeClick}>Make</button></span>
-                <span style={cmdStyle}>
-                    <input type='text' ref="addVal"/>
-                    <button onClick={this.handleExecuteClick}>Execute</button>
-                </span>
-          </div>
+          <span className='AddCommand'>
+              <input type='text' ref="addVal"/>
+              <CommandExecute onClick={this.handleExecuteClick}></CommandExecute>
+          </span>
         );
     }
 });
 
-module.exports = CommandAdd;
+module.exports = AddCommand;

@@ -2,7 +2,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AggregateConstants = require('../stores/AggregateConstants');
 
-var AggregateActionCreators = {
+var AggregateActions = {
 
     add: function(aggregate){
         AppDispatcher.handleViewAction({
@@ -17,4 +17,4 @@ var AggregateActionCreators = {
     }
 };
 
-module.exports = AggregateActionCreators;
+module.exports = AggregateActions;

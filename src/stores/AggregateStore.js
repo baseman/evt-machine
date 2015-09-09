@@ -42,7 +42,7 @@ function setData(items) {
 }
 function appendData(item) {
     _data.push(
-        eventPlayer.Model.make(item)
+        eventPlayer.Aggregate.make(item)
     );
 }
 function clearData() {

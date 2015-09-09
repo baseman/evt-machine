@@ -4,11 +4,11 @@ var React = require('react/addons');
 
 var EventItem = require('./EventItem');
 
-var EventStore = require('../stores/EventStore');
+var EventStore = require('../../stores/EventStore');
 
-var EventActions = require('../actions/EventActions');
+var EventActions = require('../../actions/EventActions');
 
-require('styles/EventList.css');
+require('../../styles/event/EventList.css');
 
 function getStateFor(id) {
     return {
@@ -26,9 +26,6 @@ var EventList = React.createClass({
     },
     componentWillUnmount: function() {
         EventStore.removeChangeListener(this._onChange);
-    },
-    handleClearEventsClick: function(){
-        EventActions.clear(this.props.aggregateId);
     },
     handleUndoClick: function(){
         EventActions.undo(this.props.aggregateId);
@@ -49,7 +46,6 @@ var EventList = React.createClass({
                 <span>
                     Event Actions:
                     <button onClick={this.handleUndoClick}>Undo</button>
-                    <button onClick={this.handleClearEventsClick}>Clear</button>
                 </span>
             </div>);
     },

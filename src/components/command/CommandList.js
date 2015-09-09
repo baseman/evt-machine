@@ -2,7 +2,7 @@
 
 var React = require('react/addons');
 
-require('styles/CommandList.css');
+require('../../styles/command/CommandList.css');
 
 var CommandList = React.createClass({
 

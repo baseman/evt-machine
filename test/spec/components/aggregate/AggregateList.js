@@ -5,16 +5,16 @@
 // const TestUtils = React.addons.TestUtils;
 
 import createComponent from 'helpers/createComponent';
-import CommandItem from 'components/CommandItem.js';
+import AggregateList from 'components/aggregate/AggregateList.js';
 
-describe('CommandItem', () => {
-    let CommandItemComponent;
+describe('AggregateList', () => {
+    let AggregateListComponent;
 
     beforeEach(() => {
-        CommandItemComponent = createComponent(CommandItem);
+        AggregateListComponent = createComponent(AggregateList);
     });
 
     it('should have its component name as default className', () => {
-        expect(CommandItemComponent._store.props.className).toBe('CommandItem');
+        expect(AggregateListComponent._store.props.className).toBe('AggregateList');
     });
 });

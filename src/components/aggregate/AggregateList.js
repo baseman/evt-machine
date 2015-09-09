@@ -1,9 +1,9 @@
 'use strict';
 
-require('styles/calculation/AggregateList.css');
+require('../../styles/aggregate/AggregateList.css');
 var React = require('react/addons');
 
-var CalculationAggregate = require('components/calculation/Aggregate');
+var AggregateItem = require('./AggregateItem');
 
 var SnapshotStore = require('../../stores/SnapshotStore');
 var AggregateActions = require('../../actions/AggregateActions');
@@ -18,7 +18,7 @@ function getState() {
 
 var aggregateType = 'calculation';
 var _calculationId = 0;
-eventPlayer.Model.reg([
+eventPlayer.Aggregate.reg([
     { aggregateType: aggregateType, getIdForAggregateType: function(){return ++_calculationId; }}
 ]);
 
@@ -48,7 +48,7 @@ var AggregateList = React.createClass({
     render: function () {
 
         var evtNodes = this.state.listData.map(function (aggregate) {
-            return (<CalculationAggregate item={aggregate}></CalculationAggregate>);
+            return (<AggregateItem item={aggregate}></AggregateItem>);
         });
 
         return (
