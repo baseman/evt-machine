@@ -7,6 +7,7 @@ var assign = require('object-assign');
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
+var CommitDataSource = require('./dataSource/CommitDataSource');
 var AggregateStore = require('./AggregateStore');
 var EventStore = require('./EventStore');
 
@@ -62,6 +63,14 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
         }
 
         return returnItems;
+    },
+    commit: function(){
+        CommitDataSource.promiseCommit(AggregateStore.get().map(function(agg){
+                return { commitAggregate: {
+                    aggregate: agg,
+                    events: EventStore.getFor(agg.aggregateId)
+                }};
+            }));
     },
     addChangeListener: function(callback) {
         AggregateStore.addChangeListener(callback);

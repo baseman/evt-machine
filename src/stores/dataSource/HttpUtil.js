@@ -16,6 +16,22 @@ var HttpUtil = {
                     }
                 });
         });
+    },
+    promisePost: function(resourcePath, body){
+        return new Promise( (resolve, reject) => {
+            r
+                .post(config.hostUrl + resourcePath)
+                .send(body)
+                .set('Accept', 'application/json')
+                .end((err, res) => {
+                    if(err){
+                        reject(err);
+                    }
+                    else{
+                        resolve(res.body);
+                    }
+                });
+        });
     }
 };
 

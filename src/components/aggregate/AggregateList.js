@@ -45,6 +45,9 @@ var AggregateList = React.createClass({
     handleClearAggregateClick: function(){
         AggregateActions.clear();
     },
+    handleCommitAggregateClick: function(){
+        SnapshotStore.commit();
+    },
     render: function () {
 
         var evtNodes = this.state.listData.map(function (aggregate) {
@@ -59,6 +62,7 @@ var AggregateList = React.createClass({
                     Aggregate Actions:
                     <button onClick={this.handleCreateAggregateClick}>Create</button>
                     <button onClick={this.handleClearAggregateClick}>Clear</button>
+                    <button onClick={this.handleCommitAggregateClick}>Commit</button>
                 </span>
             </div>
         );
