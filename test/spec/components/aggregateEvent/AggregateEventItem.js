@@ -5,16 +5,16 @@
 // const TestUtils = React.addons.TestUtils;
 
 import createComponent from 'helpers/createComponent';
-import CommandItem from 'components/command/CommandItem.js';
+import AggregateEventItem from 'components/aggregateEvent/AggregateEventItem.js';
 
-describe('CommandItem', () => {
-    let CommandItemComponent;
+describe('AggregateEventItem', () => {
+    let AggregateEventItemComponent;
 
     beforeEach(() => {
-        CommandItemComponent = createComponent(CommandItem);
+        AggregateEventItemComponent = createComponent(AggregateEventItem);
     });
 
     it('should have its component name as default className', () => {
-        expect(CommandItemComponent._store.props.className).toBe('CommandItem');
+        expect(AggregateEventItemComponent._store.props.className).toBe('AggregateEventItem');
     });
 });

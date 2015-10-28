@@ -2,19 +2,19 @@
 
 var React = require('react/addons');
 
-require('../../styles/command/CommandExecute.css');
+require('../../styles/aggregateCommand/AggregateCommandExecute.css');
 
-var CommandExecute = React.createClass({
+var AggregateCommandExecute = React.createClass({
     handleExecuteClick: function(){
         this.props.onClick();
     },
     render: function () {
         return (
-            <span className='CommandExecute'>
+            <span className='AggregateCommandExecute'>
                 <button onClick={this.handleExecuteClick}>Execute</button>
             </span>
         );
     }
 });
 
-module.exports = CommandExecute;
+module.exports = AggregateCommandExecute;

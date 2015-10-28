@@ -4,27 +4,27 @@ var React = require('react/addons');
 
 require('../../styles/aggregate/AggregateItem.css');
 
-var commandComponents = require('../calculation/CommandComponents');
+var AggregateCommandComponents = require('../calculation/AggregateCommandComponents');
 
-var CommandList = require('../command/CommandList');
-var CommandItem = require('../command/CommandItem');
+var AggregateCommandList = require('../aggregateCommand/AggregateCommandList');
+var AggregateCommandItem = require('../aggregateCommand/AggregateCommandItem');
 
-var EventList = require('../event/EventList');
+var AggregateEventList = require('../aggregateEvent/AggregateEventList');
 
 var Aggregate = React.createClass({
     render: function () {
 
         var aggregate = this.props.item;
-        var commandItems = commandComponents.map(function(cmd){
-            return (<CommandItem commandComponent={cmd} aggregate={aggregate}></CommandItem>);
+        var aggCmdItems = AggregateCommandComponents.map(function(aggcCmd){
+            return (<AggregateCommandItem aggregateCommandComponent={aggcCmd} aggregate={aggregate}></AggregateCommandItem>);
         });
         return (
             <div className="Aggregate">
-                <CommandList>{commandItems}</CommandList>
-                <EventList
+                <AggregateCommandList>{aggCmdItems}</AggregateCommandList>
+                <AggregateEventList
                     aggregateId={this.props.item.aggregateId}
                     onPlaybackClick={this.handlePlaybackClick}
-                    ></EventList>
+                    ></AggregateEventList>
                 <h3>Aggregate State</h3>
                 {JSON.stringify(this.props.item)}
             </div>

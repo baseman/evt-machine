@@ -1,7 +1,7 @@
-var aggregateCommands = require('../../aggregate/calculation/command');
+var aggregateCommands = require('../../aggregate/calculation/aggregateCommands');
 var addCommand = require('./AddCommand');
 
-var commandComponents = [
+var aggregateCommandComponents = [
     {
         inputComponent: addCommand,
         aggregateCommand: aggregateCommands.add
@@ -12,4 +12,4 @@ var commandComponents = [
     }
 ];
 
-module.exports = commandComponents;
+module.exports = aggregateCommandComponents;

@@ -1,21 +1,21 @@
 'use strict';
 
-var EventConstants = require('./EventConstants');
+var EventConstants = require('./AggregateEventConstants');
 
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
-var EventDataSource = require('./dataSource/EventDataSource');
+var AggregateEventDataSource = require('./dataSource/AggregateEventDataSource');
 
-var calcEvent = require('../aggregate/calculation/event');
+var calcEvent = require('../aggregate/calculation/aggregateEvents');
 
 var _data = [];
 
 var change = 'change_events';
-var EventStore = assign({}, EventEmitter.prototype, {
+var AggregateEventStore = assign({}, EventEmitter.prototype, {
     promiseLoad: function(){
-        return EventDataSource.promiseLoad();
+        return AggregateEventDataSource.promiseLoad();
     },
     getFor: function(aggregateId) {
         var returnVal = [];
@@ -38,12 +38,12 @@ var EventStore = assign({}, EventEmitter.prototype, {
     }
 });
 
-module.exports = EventStore;
+module.exports = AggregateEventStore;
 
-function appendData(event) {
-    _data.push(event);
+function appendAggregateEvent(aggEvent) {
+    _data.push(aggEvent);
 }
-function setEventData(data) {
+function setEventItems(data) {
     _data = [];
 
     for(var i = 0; i < data.length; i++){
@@ -56,7 +56,7 @@ function setEventData(data) {
         );
     }
 }
-function removeLastAggregateData(aggregateId) {
+function removeLastAggregateEventForAggregateId(aggregateId) {
     for(var i = _data.length - 1; i >= 0; i--){
         if(_data[i].aggregateId === aggregateId){
             _data.splice(i, 1);
@@ -64,23 +64,23 @@ function removeLastAggregateData(aggregateId) {
         }
     }
 }
-EventStore.dispatchToken = AppDispatcher.register(function(action) {
+AggregateEventStore.dispatchToken = AppDispatcher.register(function(action) {
     if(action.source === 'SERVER_ACTION'){
         if(action.data.eventItems){
-            setEventData(action.data.eventItems);
-            EventStore.emitChange();
+            setEventItems(action.data.eventItems);
+            AggregateEventStore.emitChange();
         }
     }
 
     if(action.source === 'VIEW_ACTION'){
         if(action.data.actionType === EventConstants.ADD){
-            appendData(action.data.event);
-            EventStore.emitChange();
+            appendAggregateEvent(action.data.aggregateEvent);
+            AggregateEventStore.emitChange();
         }
 
         if(action.data.actionType === EventConstants.UNDO){
-            removeLastAggregateData(action.data.aggregateId);
-            EventStore.emitChange();
+            removeLastAggregateEventForAggregateId(action.data.aggregateId);
+            AggregateEventStore.emitChange();
         }
     }
 });

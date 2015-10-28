@@ -1,9 +1,9 @@
 var eventPlayer = require('event-player');
 
-var event = require('./event');
+var aggregateEvents = require('./aggregateEvents');
 
 var _aggregateType = 'calculation';
-var aggregateCmmands = {
+var aggregateCommands = {
     add: eventPlayer.Command.init({
         'commandType': 'add',
         'aggregateType': _aggregateType,
@@ -12,7 +12,7 @@ var aggregateCmmands = {
                 throw new Error('calculator only works with numbers');
             }
         },
-        'event': event.added
+        'event': aggregateEvents.added
     }),
     clear: eventPlayer.Command.init({
         'commandType': 'clear',
@@ -22,8 +22,8 @@ var aggregateCmmands = {
                 throw new Error('calc value is already 0');
             }
         },
-        'event': event.cleared
+        'event': aggregateEvents.cleared
     })
 };
 
-module.exports = aggregateCmmands;
+module.exports = aggregateCommands;

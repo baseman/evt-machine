@@ -1,6 +1,6 @@
 var eventPlayer = require('event-player');
 
-var events = {
+var aggregateEvents = {
     added: eventPlayer.Event.init({
         'type': 'added',
         'aggregateType': 'calculation',
@@ -16,4 +16,4 @@ var events = {
         }
     })
 };
-module.exports = events;
+module.exports = aggregateEvents;

@@ -3,12 +3,12 @@
 var React = require('react/addons');
 
 
-require('../../styles/event/EventItem.css');
+require('../../styles/aggregateEvent/AggregateEventItem.css');
 
-var EventItem = React.createClass({
+var AggregateEventItem = React.createClass({
   render: function () {
     return (
-        <div className="EventItem">
+        <div className="AggregateEventItem">
             <div>
                 <span>{JSON.stringify(this.props.item)}</span>
             </div>
@@ -17,4 +17,4 @@ var EventItem = React.createClass({
   }
 });
 
-module.exports = EventItem;
+module.exports = AggregateEventItem;

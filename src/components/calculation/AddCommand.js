@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var CommandExecute = require('../command/CommandExecute');
+var AggregateCommandExecute = require('../aggregateCommand/AggregateCommandExecute');
 
 require('../../styles/calculation/AddCommand.css');
 
@@ -13,7 +13,7 @@ var AddCommand = React.createClass({
         return (
           <span className='AddCommand'>
               <input type='text' ref="addVal"/>
-              <CommandExecute onClick={this.handleExecuteClick}></CommandExecute>
+              <AggregateCommandExecute onClick={this.handleExecuteClick}></AggregateCommandExecute>
           </span>
         );
     }

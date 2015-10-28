@@ -1,15 +1,15 @@
 'use strict';
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventConstants = require('../stores/EventConstants');
+var AggregateEventConstants = require('../stores/AggregateEventConstants');
 
-var EventActions = {
+var AggregateEventActions = {
     undo: function(aggregateId){
         AppDispatcher.handleViewAction({
-            actionType: EventConstants.UNDO,
+            actionType: AggregateEventConstants.UNDO,
             aggregateId: aggregateId
         });
     }
 };
 
-module.exports = EventActions;
+module.exports = AggregateEventActions;

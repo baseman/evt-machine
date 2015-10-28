@@ -9,18 +9,18 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var CommitDataSource = require('./dataSource/CommitDataSource');
 var AggregateStore = require('./AggregateStore');
-var EventStore = require('./EventStore');
+var AggregateEventStore = require('./AggregateEventStore');
 
 var eventPlayer = require('event-player');
 var player = eventPlayer.Player.make();
 
-function tryApplySnapshot(aggregate, events) {
-    if(events.length === 0){
+function tryApplySnapshot(aggregate, aggregateEvents) {
+    if(aggregateEvents.length === 0){
         return false;
     }
 
     player.play({
-        'events': events,
+        'events': aggregateEvents,
         'for': aggregate
     });
 
@@ -32,14 +32,13 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
     load: function(){
         Promise.all([
             AggregateStore.promiseLoad(),
-            EventStore.promiseLoad()
+            AggregateEventStore.promiseLoad()
         ]).then(function(resultItems){
             resultItems.map(function(res){
                 AppDispatcher.handleServerData(res);
             });
-        })
-        .catch(function(e){
-            console.error(e);
+        }).catch(function(e){
+            console.error(e.stack);
         });
     },
     get: function(){
@@ -55,7 +54,7 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
         for(var i = 0; i < returnItems.length; i++){
 
             var snapshot = _.clone(returnItems[i]);
-            var eventItems = EventStore.getFor(snapshot.aggregateId);
+            var eventItems = AggregateEventStore.getFor(snapshot.aggregateId);
             var isSnapshotApplied = tryApplySnapshot(snapshot, eventItems);
             if(isSnapshotApplied){
                 returnItems[i] = snapshot;
@@ -68,18 +67,18 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
         CommitDataSource.promiseCommit(AggregateStore.get().map(function(agg){
                 return { commitAggregate: {
                     aggregate: agg,
-                    events: EventStore.getFor(agg.aggregateId)
+                    aggregateEventItems: AggregateEventStore.getFor(agg.aggregateId)
                 }};
             }));
     },
     addChangeListener: function(callback) {
         AggregateStore.addChangeListener(callback);
-        EventStore.addChangeListener(callback);
+        AggregateEventStore.addChangeListener(callback);
         this.on(change, callback);
     },
     removeChangeListener: function(callback) {
         AggregateStore.removeChangeListener(callback);
-        EventStore.removeChangeListener(callback);
+        AggregateEventStore.removeChangeListener(callback);
         this.removeListener(change, callback);
     },
     emitChange: function() {

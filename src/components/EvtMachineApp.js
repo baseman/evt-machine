@@ -10,7 +10,7 @@ require('../styles/main.css');
 var CalculationAggregateList = require('./aggregate/AggregateList');
 
 var EvtMachineApp = React.createClass({
-    displayName: 'Event Box',
+    displayName: 'Aggregate Event Machine',
     render: function() {
         return (
             <div className='main'>

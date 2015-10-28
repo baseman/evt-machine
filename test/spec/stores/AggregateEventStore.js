@@ -1,10 +1,10 @@
 'use strict';
 
-describe('EventStore', () => {
+describe('AggregateEventStore', () => {
   let store;
 
   beforeEach(() => {
-    store = require('stores/EventStore.js');
+    store = require('stores/AggregateEventStore.js');
   });
 
   it('should be defined', () => {

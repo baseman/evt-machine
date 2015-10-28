@@ -23,9 +23,6 @@ eventPlayer.Aggregate.reg([
 ]);
 
 var AggregateList = React.createClass({
-    getInitialState: function() {
-        return getState();
-    },
     componentDidMount: function() {
         SnapshotStore.addChangeListener(this._onChange);
     },
@@ -50,9 +47,13 @@ var AggregateList = React.createClass({
     },
     render: function () {
 
-        var evtNodes = this.state.listData.map(function (aggregate) {
-            return (<AggregateItem item={aggregate}></AggregateItem>);
-        });
+        var evtNodes = [];
+
+        if(this.state && this.state.listData) {
+            evtNodes = this.state.listData.map(function (aggregate) {
+                return (<AggregateItem item={aggregate}></AggregateItem>);
+            });
+        }
 
         return (
             <div className="AggregateList">
