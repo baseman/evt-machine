@@ -20,7 +20,9 @@ function tryApplySnapshot(aggregate, aggregateEvents) {
     }
 
     player.play({
-        'events': aggregateEvents,
+        'events': aggregateEvents.map(function(aggEvt){
+            return aggEvt.aggregateEvent;
+        }),
         'for': aggregate
     });
 
