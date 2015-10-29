@@ -12,7 +12,7 @@ require('../../styles/aggregateEvent/AggregateEventList.css');
 
 function getStateFor(id) {
     return {
-        listData: AggregateEventStore.getFor(id)
+        listData: AggregateEventStore.getAggregateEventsFor(id)
     };
 }
 var AggregateEventList = React.createClass({
@@ -32,7 +32,7 @@ var AggregateEventList = React.createClass({
     },
     render: function () {
 
-        var evtNodes = AggregateEventStore.getFor(this.props.aggregateId).map(function (aggEvt) {
+        var evtNodes = AggregateEventStore.getAggregateEventsFor(this.props.aggregateId).map(function (aggEvt) {
             return (
                 <AggregateEventItem item={aggEvt}>
                     {JSON.stringify(aggEvt.data)}

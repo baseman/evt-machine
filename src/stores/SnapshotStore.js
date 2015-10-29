@@ -54,7 +54,7 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
         for(var i = 0; i < returnItems.length; i++){
 
             var snapshot = _.clone(returnItems[i]);
-            var eventItems = AggregateEventStore.getFor(snapshot.aggregateId);
+            var eventItems = AggregateEventStore.getAggregateEventsFor(snapshot.aggregateId);
             var isSnapshotApplied = tryApplySnapshot(snapshot, eventItems);
             if(isSnapshotApplied){
                 returnItems[i] = snapshot;
@@ -67,7 +67,7 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
         CommitDataSource.promiseCommit(AggregateStore.get().map(function(agg){
                 return { commitAggregate: {
                     aggregate: agg,
-                    aggregateEventItems: AggregateEventStore.getFor(agg.aggregateId)
+                    aggregateEventItems: AggregateEventStore.getAggregateEventsFor(agg.aggregateId)
                 }};
             }));
     },

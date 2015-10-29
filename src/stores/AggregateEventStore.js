@@ -17,12 +17,12 @@ var AggregateEventStore = assign({}, EventEmitter.prototype, {
     promiseLoad: function(){
         return AggregateEventDataSource.promiseLoad();
     },
-    getFor: function(aggregateId) {
+    getAggregateEventsFor: function(aggregateId) {
         var returnVal = [];
         for(var i = 0; i < _data.length; i++){
             var evt = _data[i];
             if(evt.aggregateId === aggregateId){
-                returnVal.push(evt);
+                returnVal.push({aggregateEvent: evt});
             }
         }
         return returnVal;
