@@ -36,7 +36,7 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
             AggregateStore.promiseLoad(),
             AggregateEventStore.promiseLoad()
         ]).then(function(resultItems){
-            resultItems.map(function(res){
+            _.each(resultItems, function(res){
                 AppDispatcher.handleServerData(res);
             });
         }).catch(function(e){
@@ -56,8 +56,8 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
         for(var i = 0; i < returnItems.length; i++){
 
             var snapshot = _.clone(returnItems[i]);
-            var eventItems = AggregateEventStore.getAggregateEventsFor(snapshot.aggregateId);
-            var isSnapshotApplied = tryApplySnapshot(snapshot, eventItems);
+            var aggEvts = AggregateEventStore.getAggregateEventsFor(snapshot.aggregateId);
+            var isSnapshotApplied = tryApplySnapshot(snapshot, aggEvts);
             if(isSnapshotApplied){
                 returnItems[i] = snapshot;
             }

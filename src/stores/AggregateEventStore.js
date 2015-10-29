@@ -20,9 +20,9 @@ var AggregateEventStore = assign({}, EventEmitter.prototype, {
     getAggregateEventsFor: function(aggregateId) {
         var returnVal = [];
         for(var i = 0; i < _data.length; i++){
-            var evt = _data[i];
-            if(evt.aggregateId === aggregateId){
-                returnVal.push({aggregateEvent: evt});
+            var aggEvt = _data[i];
+            if(aggEvt.aggregateId === aggregateId){
+                returnVal.push({aggregateEvent: aggEvt});
             }
         }
         return returnVal;
@@ -47,12 +47,12 @@ function setEventItems(data) {
     _data = [];
 
     for(var i = 0; i < data.length; i++){
-        var evt = data[i];
+        var aggEvt = data[i];
         _data.push(
-            calcEvent[evt.type].make(
-                evt.aggregateId,
-                evt.version,
-                evt.data)
+            calcEvent[aggEvt.aggregateEvent.type].make(
+                aggEvt.aggregateId,
+                aggEvt.version,
+                aggEvt.data)
         );
     }
 }
@@ -66,8 +66,8 @@ function removeLastAggregateEventForAggregateId(aggregateId) {
 }
 AggregateEventStore.dispatchToken = AppDispatcher.register(function(action) {
     if(action.source === 'SERVER_ACTION'){
-        if(action.data.eventItems){
-            setEventItems(action.data.eventItems);
+        if(action.data.aggregateEventItems){
+            setEventItems(action.data.aggregateEventItems);
             AggregateEventStore.emitChange();
         }
     }
