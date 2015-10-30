@@ -14,19 +14,19 @@ var AggregateEventList = require('../aggregateEvent/AggregateEventList');
 var Aggregate = React.createClass({
     render: function () {
 
-        var aggregate = this.props.item;
-        var aggCmdItems = AggregateCommandComponents.map(function(aggcCmd){
-            return (<AggregateCommandItem aggregateCommandComponent={aggcCmd} aggregate={aggregate}></AggregateCommandItem>);
+        var aggregate = this.props.item.aggregate;
+        var aggCmdItems = AggregateCommandComponents.map(function(aggCmd){
+            return (<AggregateCommandItem aggregateCommandComponent={aggCmd} aggregate={aggregate}></AggregateCommandItem>);
         });
         return (
             <div className="Aggregate">
                 <AggregateCommandList>{aggCmdItems}</AggregateCommandList>
                 <AggregateEventList
-                    aggregateId={this.props.item.aggregateId}
+                    aggregateId={aggregate.aggregateId}
                     onPlaybackClick={this.handlePlaybackClick}
                     ></AggregateEventList>
                 <h3>Aggregate State</h3>
-                {JSON.stringify(this.props.item)}
+                {JSON.stringify(aggregate)}
             </div>
         );
     }

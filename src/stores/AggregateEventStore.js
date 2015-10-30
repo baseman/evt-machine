@@ -47,9 +47,9 @@ function setEventItems(data) {
     _data = [];
 
     for(var i = 0; i < data.length; i++){
-        var aggEvt = data[i];
+        var aggEvt = data[i].aggregateEvent;
         _data.push(
-            calcEvent[aggEvt.aggregateEvent.aggregateEventType].make(
+            calcEvent[aggEvt.aggregateEventType].make(
                 aggEvt.aggregateId,
                 aggEvt.version,
                 aggEvt.data)

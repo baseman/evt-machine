@@ -9,7 +9,7 @@ var AggregateCommandActions = {
     execute: function(aggCmd, cmdData, agg){
         var aggCmdInst = aggCmd.make(cmdData);
 
-        var aggEvt = eventPlayer.Command.execute({'command': aggCmdInst, 'on': agg});
+        var aggEvt = eventPlayer.AggregateCommand.execute({'aggregateCommand': aggCmdInst, 'on': agg});
 
         AppDispatcher.handleViewAction({
             actionType: AggregateEventConstants.ADD,

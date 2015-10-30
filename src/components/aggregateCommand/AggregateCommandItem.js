@@ -38,7 +38,7 @@ var AggregateCommandItem = React.createClass({
 
         return (
             <div className='AggregateCommandItem'>
-                <span><button onClick={this.handleMakeClick}>{aggCmd.aggregateCommand.commandType}</button></span>
+                <span><button onClick={this.handleMakeClick}>{aggCmd.aggregateCommand.aggregateCommandType}</button></span>
                 <span style={aggCmdStyle}>
                     {aggCmdInputComponentNode}
                 </span>

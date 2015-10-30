@@ -4,25 +4,25 @@ var aggregateEvents = require('./aggregateEvents');
 
 var _aggregateType = 'calculation';
 var aggregateCommands = {
-    add: eventPlayer.Command.init({
-        'commandType': 'add',
+    add: eventPlayer.AggregateCommand.init({
+        'aggregateCommandType': 'add',
         'aggregateType': _aggregateType,
         'validation': function(data){
             if(isNaN(data.addVal)){
                 throw new Error('calculator only works with numbers');
             }
         },
-        'event': aggregateEvents.added
+        'aggregateEvent': aggregateEvents.added
     }),
-    clear: eventPlayer.Command.init({
-        'commandType': 'clear',
+    clear: eventPlayer.AggregateCommand.init({
+        'aggregateCommandType': 'clear',
         'aggregateType': _aggregateType,
         'validation': function(data, aggregate){
             if(!aggregate.val){
                 throw new Error('calc value is already 0');
             }
         },
-        'event': aggregateEvents.cleared
+        'aggregateEvent': aggregateEvents.cleared
     })
 };
 

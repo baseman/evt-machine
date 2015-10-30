@@ -12,18 +12,18 @@ var AggregateStore = require('./AggregateStore');
 var AggregateEventStore = require('./AggregateEventStore');
 
 var eventPlayer = require('event-player');
-var player = eventPlayer.Player.make();
+var aggPlayer = eventPlayer.AggregatePlayer.make();
 
-function tryApplySnapshot(aggregate, aggregateEvents) {
+function tryApplySnapshot(snapshot, aggregateEvents) {
     if(aggregateEvents.length === 0){
         return false;
     }
 
-    player.play({
+    aggPlayer.play({
         'events': aggregateEvents.map(function(aggEvt){
             return aggEvt.aggregateEvent;
         }),
-        'for': aggregate
+        'for': snapshot.aggregate
     });
 
     return true;
@@ -56,7 +56,7 @@ var SnapshotStore = assign({}, EventEmitter.prototype, {
         for(var i = 0; i < returnItems.length; i++){
 
             var snapshot = _.clone(returnItems[i]);
-            var aggEvts = AggregateEventStore.getAggregateEventsFor(snapshot.aggregateId);
+            var aggEvts = AggregateEventStore.getAggregateEventsFor(snapshot.aggregate.aggregateId);
             var isSnapshotApplied = tryApplySnapshot(snapshot, aggEvts);
             if(isSnapshotApplied){
                 returnItems[i] = snapshot;
