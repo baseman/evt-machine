@@ -33,14 +33,14 @@ var AggregateList = React.createClass({
         SnapshotStore.removeChangeListener(this._onChange);
     },
     handleCreateAggregateClick: function(){
-        AggregateActions.add({
+        AggregateActions.addAction({
             aggregateType: aggregateType,
             val: 0,
             version: 1
         });
     },
     handleClearAggregateClick: function(){
-        AggregateActions.clear();
+        AggregateActions.clearAction();
     },
     handleCommitAggregateClick: function(){
         SnapshotStore.commit();

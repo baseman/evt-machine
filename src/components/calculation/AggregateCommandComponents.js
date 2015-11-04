@@ -4,11 +4,11 @@ var addCommand = require('./AddCommand');
 var aggregateCommandComponents = [
     {
         inputComponent: addCommand,
-        aggregateCommand: aggregateCommands.add
+        aggregateCommand: aggregateCommands.addCommand
     },
     {
         inputComponent: null,
-        aggregateCommand: aggregateCommands.clear
+        aggregateCommand: aggregateCommands.clearCommand
     }
 ];
 

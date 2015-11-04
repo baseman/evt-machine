@@ -4,13 +4,13 @@ var AggregateConstants = require('../stores/AggregateConstants');
 
 var AggregateActions = {
 
-    add: function(aggregate){
+    addAction: function(aggregate) {
         AppDispatcher.handleViewAction({
             actionType: AggregateConstants.ADD,
             aggregate: aggregate
         });
     },
-    clear: function(){
+    clearAction: function(){
         AppDispatcher.handleViewAction({
             actionType: AggregateConstants.CLEAR
         });

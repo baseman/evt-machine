@@ -41,9 +41,7 @@ function setData(items) {
     _data = items;
 }
 function appendData(item) {
-    _data.push(
-        eventPlayer.Aggregate.make(item)
-    );
+    _data.push({aggregate: eventPlayer.Aggregate.make(item)});
 }
 function clearData() {
     _data = [];
